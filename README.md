@@ -6,7 +6,7 @@ Exemplo de aplicação PHP com CRUD completo, deploy automatizado via **GitHub A
 
 ## 🗂️ Estrutura do Projeto
 
-```
+``` bash
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml        # Pipeline de CI/CD
@@ -45,13 +45,13 @@ docker run -d -p 8080:80 --name crud-demo crud-demo
 
 Vá em **Settings → Secrets and variables → Actions** e adicione:
 
-| Secret | Valor |
-|---|---|
-| `DOCKER_USERNAME` | Seu usuário no Docker Hub |
-| `DOCKER_PASSWORD` | Senha ou token do Docker Hub |
-| `SERVER_HOST` | IP ou domínio do seu servidor |
-| `SERVER_USER` | Usuário SSH (ex: `ubuntu`) |
-| `SERVER_SSH_KEY` | Conteúdo da chave SSH privada |
+| Secret            | Valor                         |
+|-------------------|-------------------------------|
+| `DOCKER_USERNAME` | Seu usuário no Docker Hub     |
+| `DOCKER_PASSWORD` | Senha ou token do Docker Hub  |
+| `SERVER_HOST`     | IP ou domínio do seu servidor |
+| `SERVER_USER`     | Usuário SSH (ex: `ubuntu`)    |
+| `SERVER_SSH_KEY`  | Conteúdo da chave SSH privada |
 
 ### 2. Preparando o Servidor
 
@@ -59,6 +59,7 @@ Vá em **Settings → Secrets and variables → Actions** e adicione:
 # Instale o Docker no servidor (Ubuntu)
 curl -fsSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
+sudo reboot
 ```
 
 ### 3. Deploy
@@ -81,15 +82,20 @@ O pipeline irá automaticamente:
 
 ## 🔌 Endpoints da API
 
-| Método | URL | Descrição |
-|---|---|---|
-| GET | `/api/users.php` | Lista todos |
-| GET | `/api/users.php?id=1` | Busca por ID |
-| POST | `/api/users.php` | Cria usuário |
-| PUT | `/api/users.php?id=1` | Atualiza usuário |
-| DELETE | `/api/users.php?id=1` | Remove usuário |
+| Método | URL                   | Descrição        |
+|--------|-----------------------|------------------|
+| GET    | `/api/users.php`      | Lista todos      |
+| GET    | `/api/users.php?id=1` | Busca por ID     |
+| POST   | `/api/users.php`      | Cria usuário     |
+| PUT    | `/api/users.php?id=1` | Atualiza usuário |
+| DELETE | `/api/users.php?id=1` | Remove usuário   |
 
 **Body (POST/PUT):**
 ```json
-{ "name": "João Silva", "email": "joao@email.com" }
+{
+        "id": 1,
+        "name": "João da Silva",
+        "email": "jsilva.joao@gmail.com",
+        "created_at": "2026-05-01 18:59:30"
+    }
 ```
